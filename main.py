@@ -73,7 +73,7 @@ def search_website():
             with open("data.json", "r") as file:
                 data = json.load(file)
         except (FileNotFoundError, json.decoder.JSONDecodeError):
-            messagebox.showerror(title="Error", message=f"You do not have data saved for website: {website_name}")
+            messagebox.showerror(title="Error", message=f"Error no data file found")
         else:
             try:
                 messagebox.showinfo(title=f"Success", message=f"Info for {website_name}:"
