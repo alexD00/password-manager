@@ -65,18 +65,22 @@ def generate_password():
 
 def search_website():
     website_name = website_entry.get()
-    try:
-        with open("data.json", "r") as file:
-            data = json.load(file)
-    except (FileNotFoundError, json.decoder.JSONDecodeError):
-        messagebox.showerror(title="Error", message=f"You do not have data saved for website: {website_name}")
+
+    if len(website_name) == 0:
+        messagebox.showerror(title="Error", message=f"Please type a website")
     else:
         try:
-            messagebox.showinfo(title=f"Success", message=f"Info for {website_name}:"
-                                                          f"\nemail: {data[website_name]['email']}"
-                                                          f"\npassword: {data[website_name]['password']}")
-        except KeyError:
+            with open("data.json", "r") as file:
+                data = json.load(file)
+        except (FileNotFoundError, json.decoder.JSONDecodeError):
             messagebox.showerror(title="Error", message=f"You do not have data saved for website: {website_name}")
+        else:
+            try:
+                messagebox.showinfo(title=f"Success", message=f"Info for {website_name}:"
+                                                              f"\nemail: {data[website_name]['email']}"
+                                                              f"\npassword: {data[website_name]['password']}")
+            except KeyError:
+                messagebox.showerror(title="Error", message=f"You do not have data saved for website: {website_name}")
 
 
 window = Tk()
